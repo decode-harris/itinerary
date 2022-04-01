@@ -1,3 +1,5 @@
+const form = document.querySelector('#form');
+
 // form component input elements
 const destination = document.querySelector('#destination');
 const city = document.querySelector('#location');
@@ -118,76 +120,112 @@ createListItemElement = () => {
         }
     }
 
+    
+
 }
 
-// // delcare a function that will write the form data values to the newly created list item element
-// writeDataToElement = () => {
-    
-//     console.log('write data function active'); // test the function has been called
 
-// }
+const colorize = document.querySelector('#colorize');
 
-// // delcare a function that will write the form data values to the newly created list item element
-// writeDataToElement = () => {
+colorize.addEventListener('click', () => {
 
-//     console.log('write data function active'); // test the function has been called
+    assignListItemColor(); // initiate the assign list item color function
 
-//     // test the validation output
-//     console.log('dest : ' + destination.value + ' city : ' + city.value + ' days: ' + timeframe.value);
+});
 
-//     // select the first list item element that has been created
-//     let item = document.querySelector('.item');
+// create a color scheme assignment function for the created list item elements
+assignListItemColor = () => {
 
-//     // validate if the item elements first child has an empty string or null value
-//     if ( item.firstChild.innerHTML === '' ) {
+    // set a colors array for the created list items
+    let colors = [
+        'red', 'blue', 'limegreen', 'orange', 'purple'
+    ];
 
+    // select all the list item elements
+    let listItems = document.querySelectorAll('.item');
+
+    // loop through all created list item elements
+    for( let i = 0; i < listItems.length; i++ ) {
+
+        if (listItems.length === 1) {
+            // assign the list item background colors to the color array object
+            listItems[0].style.background = colors[0];
+        }
+        else if (listItems.length === 2) {
+            // assign the list item background colors to the color array object
+            listItems[0].style.background = colors[0];
+            listItems[1].style.background = colors[1];
+        }
+        else if (listItems.length === 3) {
+            // assign the list item background colors to the color array object
+            listItems[0].style.background = colors[0];
+            listItems[1].style.background = colors[1];
+            listItems[2].style.background = colors[2];
+        }
+        else if (listItems.length === 4) {
+            // assign the list item background colors to the color array object
+            listItems[0].style.background = colors[0];
+            listItems[1].style.background = colors[1];
+            listItems[2].style.background = colors[2];
+            listItems[3].style.background = colors[3];
+        }
+        else {
+            // assign the list item background colors to the color array object
+            listItems[0].style.background = colors[0];
+            listItems[1].style.background = colors[1];
+            listItems[2].style.background = colors[2];
+            listItems[3].style.background = colors[3];
+            listItems[4].style.background = colors[4];
+
+            // remove the colorize button from itinerary overview section component
+            colorize.style.display = 'none';
+
+            // remove the form component from the itinerary setup section component
+            form.style.display = 'none';
         
-
-//         console.log(item.firstChild);
-//         // select all created text information elements
-//         let info = document.querySelectorAll('.info');
-//         console.log(info);
-
-//         // write the form input data values to the text information elements
-//         info[0].innerHTML = destination.value;
-//         info[1].innerHTML = city.value;
-//         info[2].innerHTML = timeframe.value + ' days';
-//     }
-//     else {
-
+        }
         
-//         let itemAll = document.querySelectorAll('.item');
+        console.log(listItems); // test selection all of list item elements
 
-//         for ( let i = 0; i < itemAll.length; i++ ) {
+        enableListItemEditingProtocol(); // initiate the enable editing protocol function
 
-//             console.log('more than 1 item has been created');
+        return
+        
+    }
+}
 
-//             let nextItem = itemAll[ i + 1];
+// declare a function that will enable a user to click on any of the created list elements and open up the editing properties / tool panel
+enableListItemEditingProtocol = () => {
 
-//             let info = nextItem.querySelectorAll('.info');
+    let items = document.querySelectorAll('.item');
+    let info =  document.querySelectorAll('.info');
 
-//             if (nextItem.firstChild.innerHTML === '') {
-//                 info[0].innerHTML = destination.value;
-//                 info[1].innerHTML = city.value;
-//                 info[2].innerHTML = timeframe.value + ' days';
+    // loop through each of the list item elements
+    items.forEach(element => {
+        // add an event listener to each list item element
+        element.addEventListener('click', ()=> {
 
-                
-//             }
-//             else {
-//                 // let info = nextItem.querySelectorAll('.info');
-//                 console.log(info);
+            console.log('items element has been clicked'); // test the event listener has been attached to the required elements
+            element.style.background = 'none'; // test that the element has an interactive function with the current user
 
-//                 i++;
+            // select the clicked info elements as
+            let editDestination = info[0];
+            let editCity = info[1];
+            let editTimeframe = info[2];
+            
+            editDestination.setAttribute('contenteditable', true);
+            editCity.setAttribute('contenteditable', true);
+            editTimeframe.setAttribute('contenteditable', true);
 
-//                 // nextItem.style.background = 'black';
-//             }
-//         return
-//         }
-//         return
-//     }
+            editDestination.focus();
+            console.log(editDestination);
 
-    
+            return
 
-    
-// }
+        });
+    });
 
+    console.log(items); // test that all items have been selected once declared
+
+    return
+}
