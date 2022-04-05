@@ -1,3 +1,4 @@
+// form component
 const form = document.querySelector('#form');
 
 // form component input elements
@@ -98,16 +99,16 @@ createListItemElement = () => {
         let text = document.querySelectorAll('.info');
         console.log(text);
 
+        // validate if the first text element is an empty string
         if ( text[0].innerHTML === '' ) {
+
             // write the form input data values to the text information elements
             text[0].innerHTML = destination.value;
             text[1].innerHTML = city.value;
             text[2].innerHTML = timeframe.value + ' days';
         }
         else {
-            console.log('loop through item elements');
-
-            console.log(item);
+            console.log(item); // test which items are being selected
 
             // select the current created item for data write method
             let current = item.querySelectorAll('.info');
@@ -119,19 +120,77 @@ createListItemElement = () => {
             current[2].innerHTML = timeframe.value + ' days';
         }
     }
+    enableListItemEditingProtocol(); // initiate the enable editing protocol function
+}
 
+// itinerary component colorize button
+const confirm = document.querySelector('#confirm');
+
+// setup a click event on the confirm button
+confirm.addEventListener('click', () => {
+    enableItineraryCreationProtocol(); // initiate the itinerary view protocol function
+});
+
+// declare a function that will enable a user to click on any of the created list elements and open up the editing properties / tool panel
+enableListItemEditingProtocol = () => {
+
+    // select all items that have been created up until this point
+    let items = document.querySelectorAll('.item');
     
+    // loop through each of the list item elements
+    items.forEach(element => {
+        // add an event listener to each list item element
+        element.addEventListener('click', ()=> {
 
+            console.log('items element has been clicked'); // test the event listener has been attached to the required elements
+            element.style.background = 'red'; // test that the element has an interactive function with the current user
+
+            // select all the info elements that have been created up until this point
+            let info =  element.querySelectorAll('.info');
+            
+            // loop through all current info inside the clicked element
+            for (let i = 0; i < info.length; i++) {
+                info[i].setAttribute('contenteditable', true); // set all info elements inside the clicked element to content editable
+                info[i].classList = 'editing-items'; // set all info elements class name to current action [ editing ]
+                info[0].focus(); // highlight and focus the user's to the first clicked element info item
+            }
+            
+            return
+        });
+    });
+
+    console.log(items); // test that all items have been selected once declared
+
+    return
 }
 
 
-const colorize = document.querySelector('#colorize');
 
-colorize.addEventListener('click', () => {
 
-    assignListItemColor(); // initiate the assign list item color function
 
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // create a color scheme assignment function for the created list item elements
 assignListItemColor = () => {
@@ -182,50 +241,13 @@ assignListItemColor = () => {
 
             // remove the form component from the itinerary setup section component
             form.style.display = 'none';
-        
         }
         
         console.log(listItems); // test selection all of list item elements
 
-        enableListItemEditingProtocol(); // initiate the enable editing protocol function
-
         return
-        
     }
 }
 
-// declare a function that will enable a user to click on any of the created list elements and open up the editing properties / tool panel
-enableListItemEditingProtocol = () => {
 
-    let items = document.querySelectorAll('.item');
-    let info =  document.querySelectorAll('.info');
 
-    // loop through each of the list item elements
-    items.forEach(element => {
-        // add an event listener to each list item element
-        element.addEventListener('click', ()=> {
-
-            console.log('items element has been clicked'); // test the event listener has been attached to the required elements
-            element.style.background = 'none'; // test that the element has an interactive function with the current user
-
-            // select the clicked info elements as
-            let editDestination = info[0];
-            let editCity = info[1];
-            let editTimeframe = info[2];
-            
-            editDestination.setAttribute('contenteditable', true);
-            editCity.setAttribute('contenteditable', true);
-            editTimeframe.setAttribute('contenteditable', true);
-
-            editDestination.focus();
-            console.log(editDestination);
-
-            return
-
-        });
-    });
-
-    console.log(items); // test that all items have been selected once declared
-
-    return
-}

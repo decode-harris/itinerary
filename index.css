@@ -128,3 +128,9 @@ h2 {
 .info {
     margin-bottom: 0.5rem;
 }
+
+
+/* list editing properties */
+.editing-items {
+    border: 2px dotted red;
+}
